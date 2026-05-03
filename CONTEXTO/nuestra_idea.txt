@@ -1,0 +1,100 @@
+﻿PRÀCTICA 1:
+DESENVOLUPAMENT D'AGENTS INTEL·LIGENTS
+
+1. Descripció funcional del problema i solució
+Els estudiants han de gestionar grans volums d'informació en format PDF (apunts, temaris, llibres digitals). El procés manual per extreure idees clau, resumir i preparar preguntes d'examen és lent i irregular.
+
+La nostra solució és un sistema multiagent implementat amb CrewAI que processa un PDF d'entrada i genera un únic document de sortida en format Markdown amb quatre blocs:
+- Idees clau extretes
+- Resum estructurat d'estudi
+- Preguntes tipus examen amb resposta orientativa
+- Explicacions simplificades de conceptes difícils
+
+2. Públic objectiu
+- Estudiants universitaris
+- Estudiants de batxillerat
+- Persones que preparen oposicions
+- Qualsevol usuari que necessiti sintetitzar contingut de PDFs
+
+3. Llista d'agents
+Agent 1: Lector de PDFs
+- Role: Especialista en lectura de documents
+- Goal: Extreure idees i estructura rellevant del PDF
+- Backstory: Expert en anàlisi de textos acadèmics
+
+Agent 2: Generador de resums
+- Role: Analista de contingut
+- Goal: Crear un resum clar i estructurat per estudiar
+- Backstory: Professor virtual orientat a síntesi
+
+Agent 3: Generador de preguntes
+- Role: Especialista en avaluació
+- Goal: Generar preguntes tipus examen amb resposta orientativa
+- Backstory: Expert en pedagogia i pràctica d'avaluació
+
+Agent 4: Tutor explicador
+- Role: Tutor virtual
+- Goal: Explicar conceptes difícils amb llenguatge senzill
+- Backstory: Tutor pacient que adapta el nivell de les explicacions
+
+4. Propietats de l'entorn
+- Observabilitat: Parcial (es treballa només amb el text extret del document)
+- Cardinalitat: Multiagent
+- Determinisme: No determinista (les respostes poden variar segons el model)
+- Freqüència: Discreta (execució per petició)
+- Dinamicitat: Estàtic durant l'execució
+- Accessibilitat: Semi-accessible
+
+5. Llista de tasques
+Tasca 1: Llegir document
+- Acció: Extreure contingut textual del PDF
+- Output: Idees clau per seccions
+
+Tasca 2: Resumir
+- Acció: Generar resum d'estudi estructurat
+- Output: Resum amb tema principal, punts clau i conclusió
+
+Tasca 3: Generar preguntes
+- Acció: Crear preguntes tipus examen
+- Output: Preguntes amb resposta orientativa
+
+Tasca 4: Explicar conceptes
+- Acció: Simplificar conceptes difícils
+- Output: Explicacions breus amb analogies
+
+6. Flux de treball
+El sistema segueix un flux seqüencial (CrewAI Process.sequential):
+1. L'agent lector processa el text del PDF
+2. L'agent resumidor genera el resum
+3. L'agent d'avaluació crea preguntes
+4. L'agent tutor produeix explicacions
+
+Finalment, el sistema consolida els quatre resultats en un únic fitxer `.md`.
+
+7. Tecnologies utilitzades
+- Framework: CrewAI
+- Model LLM: Ollama (configurat per defecte amb llama3.2)
+- Lectura de PDF: pypdf
+- Execució: CLI amb Python
+
+8. Implementació actual del prototip
+- Entrada: `python main.py <ruta_pdf> --output <fitxer.md>`
+- Carpeta de proves: `pdfs/`
+- Sortida: fitxer Markdown únic amb 4 seccions
+- Configuració: variables `OLLAMA_MODEL` i `OLLAMA_BASE_URL`
+- Control de context: paràmetre `--max-chars`
+
+9. Conclusions i millores futures
+Problemes detectats:
+- Qualitat de sortida variable segons model i prompt
+- Possibles errors de codificació si l'entorn no està en UTF-8
+
+Solucions aplicades:
+- Separació clara de rols i tasques
+- Consolidació en un únic document final
+
+Millores futures:
+- Memòria d'usuari/historial d'estudi
+- Interfície gràfica
+- Validació automàtica de qualitat del resum i preguntes
+- Ajust de prompts per millorar rigor acadèmic i llenguatge
