@@ -6,7 +6,7 @@ from pypdf import PdfReader
 
 
 def extract_pdf_text(pdf_path: str | Path) -> str:
-    """Extract plain text from all pages of a PDF."""
+    """Extrae texto plano concatenando todas las paginas del PDF."""
     path = Path(pdf_path)
     if not path.exists():
         raise FileNotFoundError(f"PDF not found: {path}")
@@ -21,7 +21,7 @@ def extract_pdf_text(pdf_path: str | Path) -> str:
 
 
 def clamp_text(text: str, max_chars: int = 12000) -> str:
-    """Limit text length to keep prompts manageable for local models."""
+    """Recorta el texto para mantener prompts manejables en modelos locales."""
     if max_chars <= 0:
         return text
     if len(text) <= max_chars:
